@@ -1,8 +1,13 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
-TOKEN = os.getenv("7001997590:AAF_cm25-932echJtVw172XhYpFMor488KI")
+# Печатаем токен в логах Render для отладки
+print("DEBUG: BOT_TOKEN =", os.getenv("BOT_TOKEN"))
+
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+# Получаем токен из переменной окружения
+TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -12,8 +17,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Продолжая, вы соглашаетесь с её условиями."
     )
 
+# Создаём приложение Telegram-бота
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 
-print("✅ Бот запущен. Ждёт команду /start...")
+print("✅ Бот запущен.")
 app.run_polling()
